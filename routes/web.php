@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+Route::get('/secretaire/login','SecretaireContoller@login')->name('seller-login') ;
+Route::post('/secretaire/login','SecretaireContoller@authenticate')->name('seller-authenticate') ;
+
+
+require __DIR__.'/auth.php';

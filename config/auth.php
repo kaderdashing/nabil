@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Models\secretaire;
+
 return [
 
     /*
@@ -40,6 +43,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'secretaire' => [
+            'driver' => 'session',
+            'provider' => 'secretaires',
+        ],
     ],
 
     /*
@@ -62,9 +70,15 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => User::class,
         ],
 
+
+
+        'secretaires' => [
+            'driver' => 'eloquent',
+            'model' => secretaire::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -89,6 +103,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'secretaires' => [
+            'provider' => 'secretaires',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
