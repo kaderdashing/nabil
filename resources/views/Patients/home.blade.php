@@ -12,10 +12,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="{{route('Patients.index') }}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link link-primary" href="#">cree patient</a>
+                <a class="nav-link link-primary" href="{{route('Patients.create') }}">cree patient</a>
               </li>
               <li class="nav-item dropdown link-warning">
                 <a class="nav-link dropdown-toggle link-warning" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
