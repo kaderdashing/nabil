@@ -50,8 +50,37 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        
+                 // Valider les inputs
+       $kader= $request->validate([
+            'choices' => 'required',
+            'nom' => 'required',
+            'AGE' => 'required',
+            'TYPE' => 'required',
+            'phone' => 'required',
+            'serie' => 'required',
+            'paye' => 'required',
+            'reste' => 'required',
+        ]);
+        dd($kader) ;
+
+        $enseignant = new Patients([
+            "nom" => $request->get('nom'),
+            "prenom" => $request->get('prenom'),
+            "date_naissance" => $request->get('date_naissance'),
+            "grade" => $request->get('grade'),
+            
+            "file_path" => $request->file->hashName()
+        ]);
+       
+        $enseignant->save(); // Finally, save the record.
+    
+
+    return view('Enseignant.create');
+
+}
+
+
 
     /**
      * Display the specified resource.

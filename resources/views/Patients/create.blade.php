@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<style>
+body {
+  background-color: lightblue;
+}
+</style>
 <body>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -54,31 +59,60 @@
     
     <div>
     
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="{{ route('Patients.store') }}" method="post" enctype="multipart/form-data">
             <!-- Add CSRF Token -->
             @csrf
+
+            <div class="form-group mt-3">
+              <label>type</label>
+              <SELECT  class="form-select" name="choices" size="1" id="in" notrequired>
+                  <OPTION>X
+                  <OPTION>Y
+  
+                  </SELECT>
+        
+
+          <div class="row">
+            <div class="col">
+            <label>nom patient</label>
+            <input type="text"  class="form-control" name="nom" placeholder="nom & prenom" required>
+            </div>
+            <div class="col">
+            <label>age</label>
+            <input type="text" class="form-control" name="AGE" placeholder="47" required>
+            </div>
+          </div> 
+
         <div class="form-group">
-            <label>nom enseignant</label>
-            <input type="text"  class="form-control" name="nom" required>
-        </div> 
-        <div class="form-group">
-            <label>prenom enseignant</label>
-            <input type="text" class="form-control" name="prenom" required>
+            <label>TYPE</label>
+            <input type="text" class="form-control" name="TYPE" placeholder="type de maladie" required>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="form-label" for="typePhone">Phone number </label>
+            <input type="tel" id="typePhone" name="phone" class="form-control" placeholder="0550 50 50 50"/>
+          </div>
+          <div class="col">
+            <label class="form-label" for="typePhone">serie unique </label>
+            <input type="text" id="" name="serie" class="form-control" placeholder=""/>
+          </div>
         </div>
 
-        <label for="start">date de naissance</label>
-
-        <input type="date" id="start" class="form-control" name="date_naissance" value="2018-07-22" min="1960-01-01" max="2018-12-31">
-        <div class="form-group mt-3">
-
-            <SELECT name="grade" size="1" id="in" notrequired>
-                <OPTION>X
-                <OPTION>Y
-
-                </SELECT>
-      
-            <input type="file" class="mt-3" name="file" required>
+        <div class="row">
+          <div class="col">
+            <label class="form-label" for="paye">payé </label>
+            <input type="tel" id="paye" name="paye" class="form-control" placeholder="2000"/>
+          </div>
+          <div class="col">
+            <label class="form-label" for="reste">reste </label>
+            <input type="text" id="rest" name="reste" class="form-control" placeholder="2000"/>
+          </div>
         </div>
+
+
+
+      </div>
+
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
 
