@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PatientsController extends Controller
 {
@@ -62,21 +63,25 @@ class PatientsController extends Controller
             'paye' => 'required',
             'reste' => 'required',
         ]);
-        dd($kader) ;
+       // dd($kader) ;
 
-        $enseignant = new Patients([
-            "nom" => $request->get('nom'),
-            "prenom" => $request->get('prenom'),
-            "date_naissance" => $request->get('date_naissance'),
-            "grade" => $request->get('grade'),
+        $patients = new Patients([
+            "choices" => $request->get('choices'),
+            "name" => $request->get('nom'),
+            "age" => $request->get('AGE'),
+            "type" => $request->get('TYPE'),
+            "num" => $request->get('nom'),
+            "serie" => $request->get('serie'),
+            "paye" => $request->get('paye'),
+            "reste" => $request->get('reste'),
             
-            "file_path" => $request->file->hashName()
         ]);
-       
-        $enseignant->save(); // Finally, save the record.
+       /* $kader=$request->get('serie') ;
+       dd($kader);*/
+        $patients->save(); // Finally, save the record.
     
-
-    return view('Enseignant.create');
+        Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
+    return view('Patients.create');
 
 }
 
@@ -101,7 +106,11 @@ class PatientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $patient = Patients::find($id);
+         //   dd($patient) ;
+            // show the edit form and pass the patient
+            return view('Patients.edit')
+                ->with('patient', $patient);
     }
 
     /**
@@ -113,7 +122,7 @@ class PatientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request) ;
     }
 
     /**

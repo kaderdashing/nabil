@@ -3,6 +3,9 @@
 body {
   background-color: lightblue;
 }
+.purple-border textarea {
+    border: 1px solid #ba68c8;
+}
 </style>
 <body>
     
@@ -67,8 +70,6 @@ body {
         </div>
       </nav>
 
-<br> <br><br>
-
 <div class="container">
     <!-- if validation in the controller fails, show the errors -->
     @if ($errors->any())
@@ -90,18 +91,32 @@ body {
     </div>
     
     @endif
-    
+    <div>
+        {{ $patient->description }}
+    </div>
     <div>
     
-    <form action="{{ route('Patients.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('Patients.update', $patient->id ) }}" method="post" enctype="multipart/form-data">
             <!-- Add CSRF Token -->
             @csrf
+        
+            {{ method_field('PUT') }}
+           
 
             <div class="form-group mt-3">
               <label>type</label>
-              <SELECT  class="form-select" name="choices" size="1" id="in" notrequired>
-                  <OPTION>X
-                  <OPTION>Y
+              <SELECT  class="form-select" name="choices" size="1" id="in"  notrequired>
+
+                  <OPTION 
+                  @if((($patient->choices)=="X"))
+                  selected
+                 @endif
+                  >X
+                  <OPTION 
+                  @if((($patient->choices)=="Y"))
+                  selected
+                 @endif
+                    >Y
   
                   </SELECT>
         
@@ -109,45 +124,46 @@ body {
           <div class="row">
             <div class="col">
             <label>nom patient</label>
-            <input type="text"  class="form-control" name="nom" placeholder="nom & prenom" required>
+            <input type="text"  class="form-control" name="nom" placeholder="nom & prenom" value="{{ $patient->name }}" required>
             </div>
             <div class="col">
             <label>age</label>
-            <input type="text" class="form-control" name="AGE" placeholder="47" required>
+            <input type="text" class="form-control" name="AGE" placeholder="47" value="{{ $patient->age }}" required>
             </div>
           </div> 
 
         <div class="form-group">
             <label>TYPE</label>
-            <input type="text" class="form-control" name="TYPE" placeholder="type de maladie" required>
+            <input type="text" class="form-control" name="TYPE" placeholder="type de maladie" value="{{ $patient->type }}"  required>
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label" for="typePhone">Phone number </label>
-            <input type="tel" id="typePhone" name="phone" class="form-control" placeholder="0550 50 50 50"/>
+            <input type="tel" id="typePhone" name="phone" class="form-control" value="{{ $patient->num }}" placeholder="0550 50 50 50"/>
           </div>
-          <div class="col">
-            <label class="form-label" for="typePhone">serie unique </label>
-            <input type="text" id="" name="serie" class="form-control" placeholder=""/>
-          </div>
-        </div>
 
         <div class="row">
           <div class="col">
             <label class="form-label" for="paye">payé </label>
-            <input type="tel" id="paye" name="paye" class="form-control" placeholder="2000"/>
+            <input type="tel" id="paye" name="paye" class="form-control"  value="{{ $patient->paye }}" />
           </div>
           <div class="col">
             <label class="form-label" for="reste">reste </label>
-            <input type="text" id="rest" name="reste" class="form-control" placeholder="2000"/>
+            <input type="text" id="rest" name="reste" class="form-control" value="{{ $patient->reste }}"/>
           </div>
         </div>
 
+        <br> <br>
+        
+        <div class="form-group purple-border mt-3">
+            <label for="description">description</label>
+            <textarea class="form-control" id="description" name="description" value="" rows="10">{{ $patient->description }}</textarea>
+          </div>
 
 
       </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <button type="submit" class="btn btn-primary mt-3">enregistrer</button>
     </form>
 
 

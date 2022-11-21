@@ -11,6 +11,6 @@ class Patients extends Model
     
 
     protected $fillable = [
-        'choices', 'name', 'age', 'type', 'num', 'paye', 'reste',
+        'choices', 'name', 'age', 'type','serie', 'num', 'paye', 'reste', 'description'
     ];
 }

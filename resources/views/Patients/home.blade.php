@@ -19,13 +19,24 @@
               </li>
               <li class="nav-item dropdown link-warning">
                 <a class="nav-link dropdown-toggle link-warning" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                  deconnecter
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                 
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item link-danger" href="#">déconection</a></li>
+                  <li><a class="dropdown-item link-danger" href="#">
+                    logout
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+
+                      <x-dropdown-link :href="route('logout')"
+                              onclick="event.preventDefault();
+                                          this.closest('form').submit();">
+                          
+                      </x-dropdown-link>
+                  </form>  
+                  </a></li>
                 </ul>
               </li>
 
@@ -80,7 +91,7 @@
                       <td>
                         <a href="" class="btn btn-info m-1">Details</a>
                       
-                        <a href="" > <button class="btn btn-primary"> editer</button></a>
+                        <a href="{{route('Patients.edit' , $patient->id) }}" > <button class="btn btn-primary"> editer</button></a>
                      
                      
                        
@@ -103,5 +114,6 @@
 
 </div>
 <!-- JavaScript Bundle with Popper -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
