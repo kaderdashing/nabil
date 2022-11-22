@@ -92,7 +92,7 @@ body {
     
     @endif
     <div>
-        {{ $patient->description }}
+        
     </div>
     <div>
     

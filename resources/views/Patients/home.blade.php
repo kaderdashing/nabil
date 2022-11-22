@@ -56,6 +56,16 @@
     </div>
     @endif
 
+    @if ($message = Session::has('editer'))
+
+    <div class="alert alert-success mt-4 ">
+    
+      
+           {{Session::get('editer')}}
+    
+    </div>
+    
+    @endif
 <div class="py-12">
   <h1>liste des Patients</h1>
 
@@ -89,8 +99,8 @@
                       <td>  {{$patient->choices}} </td>
                        
                       <td>
-                        <a href="" class="btn btn-info m-1">Details</a>
-                      
+                        <a href="{{route('Patients.show' , $patient->id) }}" class="btn btn-info m-1">Details</a>
+                         
                         <a href="{{route('Patients.edit' , $patient->id) }}" > <button class="btn btn-primary"> editer</button></a>
                      
                      

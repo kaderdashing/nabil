@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class PatientsController extends Controller
 {
@@ -56,9 +57,9 @@ class PatientsController extends Controller
        $kader= $request->validate([
             'choices' => 'required',
             'nom' => 'required',
-            'AGE' => 'required',
+            'AGE' => '',
             'TYPE' => 'required',
-            'phone' => 'required',
+            'phone' => '',
             'serie' => 'required',
             'paye' => 'required',
             'reste' => 'required',
@@ -70,7 +71,7 @@ class PatientsController extends Controller
             "name" => $request->get('nom'),
             "age" => $request->get('AGE'),
             "type" => $request->get('TYPE'),
-            "num" => $request->get('nom'),
+            "num" => $request->get('phone'),
             "serie" => $request->get('serie'),
             "paye" => $request->get('paye'),
             "reste" => $request->get('reste'),
@@ -95,7 +96,11 @@ class PatientsController extends Controller
      */
     public function show($id)
     {
-        //
+        $patient = Patients::findOrFail($id);
+        
+        return view('Patients.show')
+        ->with('patient', $patient);
+
     }
 
     /**
@@ -106,7 +111,7 @@ class PatientsController extends Controller
      */
     public function edit($id)
     {
-        $patient = Patients::find($id);
+        $patient = Patients::findOrFail($id);
          //   dd($patient) ;
             // show the edit form and pass the patient
             return view('Patients.edit')
@@ -122,7 +127,38 @@ class PatientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request) ;
+       // dd($request) ;
+     Patients::findOrFail($id);
+       
+        $validatedData = $request->validate([
+            'choices' => 'required',
+            'nom' => 'required',
+            'AGE' => '',
+            'TYPE' => 'required',
+            'phone' => '',
+            'paye' => 'required',
+            'reste' => 'required',
+            'description' =>''
+            
+        ]);
+
+        $kader= [
+            "choices" => $request->get('choices'),
+            "name" => $request->get('nom'),
+            "age" => $request->get('AGE'),
+            "type" => $request->get('TYPE'),
+            "num" => $request->get('phone'),
+            "paye" => $request->get('paye'),
+            "reste" => $request->get('reste'),
+            "description" => $request->get('description'),
+        ] ;
+        
+       $kade = Patients::whereId($id)->update($kader);
+
+       Session::flash('editer',"le patient a bien été modifier - voulez vous autre chose ?") ;
+       return Redirect::to('Patients') ;
+       // return redirect()->route('Patients');
+     //  return view('Patients.home');
     }
 
     /**
