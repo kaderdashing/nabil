@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Patients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
@@ -111,9 +114,12 @@ class PatientsController extends Controller
      */
     public function edit($id)
     {
-        $patient = Patients::findOrFail($id);
-         //   dd($patient) ;
-            // show the edit form and pass the patient
+        
+      /*  dd(Gate::allows('destroye-edit')) ;
+        si le user a le droit de edition le dd return true sinon false
+      */
+        $patient = Patients::findOrFail($id); 
+
             return view('Patients.edit')
                 ->with('patient', $patient);
     }

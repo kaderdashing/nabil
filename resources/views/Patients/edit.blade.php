@@ -154,12 +154,15 @@ body {
         </div>
 
         <br> <br>
+        @can('destroye-edit')
+        
+            
         
         <div class="form-group purple-border mt-3">
             <label for="description">description</label>
             <textarea class="form-control" id="description" name="description" value="" rows="10">{{ $patient->description }}</textarea>
           </div>
-
+          @endcan
 
       </div>
 
