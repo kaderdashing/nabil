@@ -5043,6 +5043,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./search */ "./resources/js/search.js");
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
@@ -5082,6 +5083,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/search.js":
+/*!********************************!*\
+  !*** ./resources/js/search.js ***!
+  \********************************/
+/***/ (() => {
+
+var form = document.getElementById('search-form');
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var token = document.querySelector('meta[name="csrf-token"]').content;
+  var url = this.getAttribute('action');
+  var q = document.getElementById('q').value;
+  fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': token
+    },
+    method: 'post',
+    body: JSON.stringify({
+      q: q
+    })
+  }).then(function (response) {
+    console.log(response);
+  })["catch"](function (error) {
+    console.log(error);
+  });
+});
 
 /***/ }),
 

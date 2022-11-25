@@ -22,14 +22,18 @@ class PatientsController extends Controller
 
     public function __construct()
     {
-      //  $this->middleware('isdoyen')->only(['create', 'store', 'edit','destroy' ]);
+       $this->middleware('auth');
 
         
     }
 
+    public function search() {
+        //dd(1);
+    }
+
         public function index()
         {
-            $patients = Patients::all() ;
+            $patients = Patients::orderBy('created_at', 'DESC')->get(); ;
             return view('Patients.home')->with([
               
                 'patients'=>$patients
@@ -177,4 +181,5 @@ class PatientsController extends Controller
     {
         //
     }
+
 }

@@ -12,7 +12,7 @@ class CreatePatientsTable extends Migration
      * @return void
      */
     public function up()
-    {
+    { 
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->enum('choices', ['X', 'Y']);

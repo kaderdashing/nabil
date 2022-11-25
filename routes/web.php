@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FethiController;
-use App\Http\Controllers\SecretaireContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +18,12 @@ Route::get('/', function () {
 });
 
 
-route::middleware('Secretaire')->group(function(){
-Route::get('/fethi', [FethiController::class, 'index'])->name('fethi');
-}) ;
+
+//Route::get('Patients/search', ['App\Http\Controllers\PatientsController@search']);
+
+Route::controller('App\Http\Controllers\PatientsController')->group(function () {
+    Route::post('Patients/search', 'search')->name('Patients.search') ;
+});
 
 
 Route::resource('Patients', 'App\Http\Controllers\PatientsController');
@@ -33,8 +34,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/secretaire/login',[SecretaireContoller::class, 'login'])->name('secretaire-login') ;
-Route::post('/secretaire/login' ,[SecretaireContoller::class, 'authenticate'])->name('secretaire-authenticate') ;
 
 
 require __DIR__.'/auth.php';
