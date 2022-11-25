@@ -45,18 +45,28 @@ body {
                   <li><a class="dropdown-item" href="#">Action</a></li>
                  
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item link-danger" href="#">
-                    logout
-                    <form method="POST" action="{{ route('logout') }}">
-                      @csrf
-
-                      <x-dropdown-link :href="route('logout')"
-                              onclick="event.preventDefault();
-                                          this.closest('form').submit();">
-                          
-                      </x-dropdown-link>
-                  </form>  
-                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                  
+                    <li>
+                      <a class="dropdown-item" href="{{ route('logout') }}" 
+                        onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <span class="titre text-danger"><b>déconnecter</b></span>
+                      </a>
+            
+            
+            
+            
+                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                           @csrf
+                       </form>
+                        </span>
+                      </a>
+                    </li>
+                  
+                  </li>
                 </ul>
               </li>
 
