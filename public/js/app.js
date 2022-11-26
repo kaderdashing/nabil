@@ -5108,7 +5108,16 @@ form.addEventListener('submit', function (e) {
       q: q
     })
   }).then(function (response) {
-    console.log(response);
+    response.json().then(function (data) {
+      var patients = document.getElementById('aaaa');
+      patients.innerHTML = "<table class=\"table\" id=\"mytable\">\n            <thead class=\"thead-dark\">\n              <tr>\n                <th scope=\"col\">ID</th>\n                <th scope=\"col\">name</th>\n                <th scope=\"col\">tel</th>\n                <th scope=\"col\">type</th>\n                <th scope=\"col\">actions</th>\n              </tr>\n            </thead>\n            <tbody>\n            ";
+      Object.entries(data)[0][1].forEach(function (element) {
+        table = document.getElementById('mytable');
+        var row = " \n                <td>".concat(element.serie, "</td>\n                <td>").concat(element.name, "</td>\n                <td>").concat(element.num, " </td>\n                <td>").concat(element.choices, "</td>\n                <td>\n                <a href=\"{{route('Patients.show' , ").concat(element.id, ") }}\" class=\"btn btn-info m-1\">Details</a>\n                         \n                        <a href=\"{{route('Patients.edit' , ").concat(element.id, ") }}\" > <button class=\"btn btn-primary\"> editer</button></a>\n                     \n                     \n                       \n                          <button type=\"submit\" class=\"btn btn-warning \">suprimer</button>\n                        \n                     \n\n                             </td>\n                ");
+        table.innerHTML += row;
+        patients.innerHTML += "\n                </tbody>\n                ";
+      });
+    });
   })["catch"](function (error) {
     console.log(error);
   });

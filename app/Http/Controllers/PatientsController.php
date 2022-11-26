@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Patients;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -27,9 +28,16 @@ class PatientsController extends Controller
         
     }
 
-    public function search() {
-        //dd(1);
-    }
+    public function search(Request $request ) :JsonResponse
+     {
+        $q = $request->input('q') ;
+        $patients = Patients::where('name' , 'like' , '%' . $q . '%')
+        ->orWhere('serie' , 'like' , '%' . $q . '%')
+        ->get() ;
+        return response()->json([
+            'patients'=>$patients
+        ]) ;
+     }
 
         public function index()
         {
