@@ -55,8 +55,57 @@ class PatientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('Patients.create');
+
+    { 
+        $patient = Patients::latest()->first()->serie;
+        $anne_courante=date("Y");
+        $rest = substr($anne_courante, -2);    // "22"
+        $ABCD=substr($patient, 2, 1);       // A B C D
+        //dd($ABCD) ;
+
+        $serie_num= substr($patient, -3) + 1 ;    //942
+        $suivant=strval($serie_num) ;
+       // dd($serie_num) ;
+        // faire le if strlen(suivant<3) .........
+        //$suivant="00".$suivant ;  //concatenation en 3 => 003
+        
+        if(strlen($suivant)<3){
+            if(strlen($suivant)==2){
+                dd(78);
+                $suivant="0".$suivant ;
+            }
+            elseif(strlen($suivant)==1){
+                
+                $suivant="00".$suivant ;
+                
+            }
+        }
+
+       
+
+      
+       //dd($ABCD) ;
+       //changer de "A" a "B" grace au code ascii
+        if($suivant==="1000")
+        {
+           $ABCD=ord($ABCD);
+            $ABCD+=1 ;
+            $suivant="001" ;
+            $ABCD=chr($ABCD) ;
+           // dd($ABCD) ;
+        }
+        
+        
+       
+
+       
+  
+
+        return view('Patients.create')->with([
+            'rest'=>$rest ,
+            'ABCD'=>$ABCD ,
+            'suivant' =>$suivant
+        ]) ;
     }
 
     /**
@@ -67,7 +116,7 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-        
+      
                  // Valider les inputs
        $kader= $request->validate([
             'choices' => 'required',
@@ -79,25 +128,30 @@ class PatientsController extends Controller
             'paye' => 'required',
             'reste' => 'required',
         ]);
-       // dd($kader) ;
-
+       
+       /////////////////////remplacer le "+" par le choix  "X" "Y"////////////////
+       $tyupe=$request->get('choices');
+        $nouv=$request->get('serie');
+       $plus=substr($nouv, 3, 1);
+       $kader=str_replace($plus,$tyupe,$nouv) ;
+        //////////////////////////////////////////////////////////////////////////
         $patients = new Patients([
             "choices" => $request->get('choices'),
             "name" => $request->get('nom'),
             "age" => $request->get('AGE'),
             "type" => $request->get('TYPE'),
             "num" => $request->get('phone'),
-            "serie" => $request->get('serie'),
+            "serie" => $kader,
             "paye" => $request->get('paye'),
             "reste" => $request->get('reste'),
             
         ]);
-       /* $kader=$request->get('serie') ;
-       dd($kader);*/
+
         $patients->save(); // Finally, save the record.
     
         Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
-    return view('Patients.create');
+       return redirect('/Patients/create');
+        //return view('Patients.create');
 
 }
 

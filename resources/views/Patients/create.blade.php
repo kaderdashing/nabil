@@ -91,6 +91,7 @@ body {
     
     @endif
     
+
     <div>
     
     <form action="{{ route('Patients.store') }}" method="post" enctype="multipart/form-data">
@@ -113,7 +114,7 @@ body {
             </div>
             <div class="col">
             <label>age</label>
-            <input type="text" class="form-control" name="AGE" placeholder="47" required>
+            <input type="text" class="form-control" name="AGE" id="fett"placeholder="47" required>
             </div>
           </div> 
 
@@ -128,7 +129,8 @@ body {
           </div>
           <div class="col">
             <label class="form-label" for="typePhone">serie unique </label>
-            <input type="text" id="" name="serie" class="form-control" placeholder=""/>
+            <input type="text" id="" name="serie" class="form-control" placeholder=""
+             value="{{$rest}}{{ $ABCD }}+{{$suivant}}"/>
           </div>
         </div>
 
@@ -146,6 +148,8 @@ body {
 
 
       </div>
+  
+      <br>
 
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>

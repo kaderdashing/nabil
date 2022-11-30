@@ -28,7 +28,8 @@ form.addEventListener('submit', function(e) {
                 <th scope="col">name</th>
                 <th scope="col">tel</th>
                 <th scope="col">type</th>
-                <th scope="col">actions</th>
+                
+                <th scope="col">action</th>
               </tr>
             </thead>
             <tbody>
@@ -42,12 +43,15 @@ form.addEventListener('submit', function(e) {
                 <td>${element.num } </td>
                 <td>${element.choices}</td>
                 <td>
-                <a href="{{route('Patients.show' , ${element.id}) }}" class="btn btn-info m-1">Details</a>
+              
+                <a href="Patients/${element.id} "  >
+                <button class="btn btn-info m-1"> detais</button>
+                          
+                        <a href="Patients/${element.id}/edit "  >
+                        <button class="btn btn-primary"> editer</button> 
+                         </a>
+                        
                          
-                        <a href="{{route('Patients.edit' , ${element.id}) }}" > <button class="btn btn-primary"> editer</button></a>
-                     
-                     
-                       
                           <button type="submit" class="btn btn-warning ">suprimer</button>
                         
                      
