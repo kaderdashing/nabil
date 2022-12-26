@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Biopsie;
+use App\Models\Cyto;
 use App\Models\User;
 use App\Models\Patients;
 use Illuminate\Http\JsonResponse;
@@ -115,11 +117,14 @@ class PatientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-      
-                 // Valider les inputs
+    {   
+        // recuperer l'URL de post si c'est cyto ou biopsie
+        $url = url()->previous() ;
+        $path= parse_url($url, PHP_URL_PATH);
+        $route_post = pathinfo($path,PATHINFO_BASENAME);
+        $H = $route_post == "cyto" ? "Y" : "X";
+      //  dd($H) ;
        $kader= $request->validate([
-            'choices' => 'required',
             'nom' => 'required',
             'AGE' => '',
             'TYPE' => 'required',
@@ -128,27 +133,32 @@ class PatientsController extends Controller
             'paye' => 'required',
             'reste' => 'required',
         ]);
-       
+       // dd(1);
        /////////////////////remplacer le "+" par le choix  "X" "Y"////////////////
-       $tyupe=$request->get('choices');
+    /*   $tyupe=$request->get('choices');
         $nouv=$request->get('serie');
        $plus=substr($nouv, 3, 1);
-       $kader=str_replace($plus,$tyupe,$nouv) ;
+       $kader=str_replace($plus,$tyupe,$nouv) ; */
         //////////////////////////////////////////////////////////////////////////
         $patients = new Patients([
-            "choices" => $request->get('choices'),
+            "choices" => $H,
             "name" => $request->get('nom'),
             "age" => $request->get('AGE'),
             "type" => $request->get('TYPE'),
             "num" => $request->get('phone'),
-            "serie" => $kader,
+            "serie" => $request->get('serie'),
             "paye" => $request->get('paye'),
             "reste" => $request->get('reste'),
             
         ]);
-
         $patients->save(); // Finally, save the record.
-    
+
+        if($H === "X"){
+            dd("biopsie") ;
+        } else {
+            dd("cyto") ;
+        }
+        
         Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
        return redirect('/Patients/create');
         //return view('Patients.create');
@@ -242,6 +252,110 @@ class PatientsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function biopsie() {
+        $patient = Biopsie::latest()->first()->serie;
+        $anne_courante=date("Y");
+        $rest = substr($anne_courante, -2);    // "22"
+        $ABCD=substr($patient, 2, 1);       // A B C D
+        //dd($ABCD) ;
+
+        $serie_num= substr($patient, -3) + 1 ;    //942
+        $suivant=strval($serie_num) ;
+       // dd($serie_num) ;
+        // faire le if strlen(suivant<3) .........
+        //$suivant="00".$suivant ;  //concatenation en 3 => 003
+        
+        if(strlen($suivant)<3){
+            if(strlen($suivant)==2){
+                dd(78);
+                $suivant="0".$suivant ;
+            }
+            elseif(strlen($suivant)==1){
+                
+                $suivant="00".$suivant ;
+                
+            }
+        }
+
+       
+
+      
+       //dd($ABCD) ;
+       //changer de "A" a "B" grace au code ascii
+        if($suivant==="1000")
+        {
+           $ABCD=ord($ABCD);
+            $ABCD+=1 ;
+            $suivant="001" ;
+            $ABCD=chr($ABCD) ;
+           // dd($ABCD) ;
+        }
+        
+        $X="X" ;
+       
+        $R=$rest.$ABCD.$X.$suivant ;
+       
+
+        return view('Patients.biopsie')->with([
+            'R'=>$R ,
+
+        ]) ;
+
+    }
+
+    public function cyto() {
+        $patient = Cyto::latest()->first()->serie;
+        $anne_courante=date("Y");
+        $rest = substr($anne_courante, -2);    // "22"
+        $ABCD=substr($patient, 2, 1);       // A B C D
+        //dd($ABCD) ;
+
+        $serie_num= substr($patient, -3) + 1 ;    //942
+        $suivant=strval($serie_num) ;
+       // dd($serie_num) ;
+        // faire le if strlen(suivant<3) .........
+        //$suivant="00".$suivant ;  //concatenation en 3 => 003
+        
+        if(strlen($suivant)<3){
+            if(strlen($suivant)==2){
+                dd(78);
+                $suivant="0".$suivant ;
+            }
+            elseif(strlen($suivant)==1){
+                
+                $suivant="00".$suivant ;
+                
+            }
+        }
+
+       
+
+      
+       //dd($ABCD) ;
+       //changer de "A" a "B" grace au code ascii
+        if($suivant==="1000")
+        {
+           $ABCD=ord($ABCD);
+            $ABCD+=1 ;
+            $suivant="001" ;
+            $ABCD=chr($ABCD) ;
+           // dd($ABCD) ;
+        }
+        
+        $X="Y" ;
+       
+        $R=$rest.$ABCD.$X.$suivant ;
+       
+
+        return view('Patients.cyto')->with([
+            'R'=>$R ,
+
+        ]) ;
+
+
+
     }
 
 }

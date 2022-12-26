@@ -23,7 +23,10 @@ Route::get('/', function () {
 
 Route::controller('App\Http\Controllers\PatientsController')->group(function () {
     Route::post('Patients/search', 'search')->name('Patients.search') ;
+    Route::get('Patients/biopsie', 'biopsie')->name('Patients.biopsie') ;
+    Route::get('Patients/cyto', 'cyto')->name('Patients.cyto') ;
 });
+
 
 
 Route::resource('Patients', 'App\Http\Controllers\PatientsController');
