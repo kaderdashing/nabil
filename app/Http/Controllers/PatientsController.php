@@ -154,14 +154,38 @@ class PatientsController extends Controller
         $patients->save(); // Finally, save the record.
 
         if($H === "X"){
-            dd("biopsie") ;
+          //  dd("biopsie") ;
+            $biopsie = new Biopsie([
+                "choices" => $H,
+                "name" => $request->get('nom'),
+                "age" => $request->get('AGE'),
+                "type" => $request->get('TYPE'),
+                "num" => $request->get('phone'),
+                "serie" => $request->get('serie'),
+                "paye" => $request->get('paye'),
+                "reste" => $request->get('reste'),
+                
+            ]);
+            $biopsie->save(); 
+            Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
+            return redirect('/Patients/biopsie');
         } else {
-            dd("cyto") ;
+            $cyto = new Cyto([
+                "choices" => $H,
+                "name" => $request->get('nom'),
+                "age" => $request->get('AGE'),
+                "type" => $request->get('TYPE'),
+                "num" => $request->get('phone'),
+                "serie" => $request->get('serie'),
+                "paye" => $request->get('paye'),
+                "reste" => $request->get('reste'),
+                
+            ]);
+            $cyto->save(); 
+            Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
+            return redirect('/Patients/cyto');
         }
         
-        Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
-       return redirect('/Patients/create');
-        //return view('Patients.create');
 
 }
 
@@ -213,7 +237,7 @@ class PatientsController extends Controller
      Patients::findOrFail($id);
        
         $validatedData = $request->validate([
-            'choices' => 'required',
+            
             'nom' => 'required',
             'AGE' => '',
             'TYPE' => 'required',
@@ -225,7 +249,7 @@ class PatientsController extends Controller
         ]);
 
         $kader= [
-            "choices" => $request->get('choices'),
+            
             "name" => $request->get('nom'),
             "age" => $request->get('AGE'),
             "type" => $request->get('TYPE'),
@@ -353,9 +377,25 @@ class PatientsController extends Controller
             'R'=>$R ,
 
         ]) ;
-
-
-
     }
+
+    public function print($id) {
+  
+        //$kader = $request->query() ;   // recuperer la query
+        // $id= key($kader) ;
+       // array_keys($kader) ; recuperer tt les clé du tebleau
+
+       $patient = Patients::findOrFail($id);
+       //dd($patient) ;
+
+       $kader= [
+        "fini" => 1,
+    ] ;
+    
+         Patients::whereId($id)->update($kader);
+
+         return view('Patients.print')->with('patient', $patient); ;
+    }
+
 
 }

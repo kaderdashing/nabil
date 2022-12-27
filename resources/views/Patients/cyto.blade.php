@@ -12,7 +12,7 @@ body {
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="{{route('Patients.index') }}">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -22,7 +22,10 @@ body {
                 <a class="nav-link active" aria-current="page" href="{{route('Patients.index') }}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link link-primary" href="{{route('Patients.create') }}">cree patient</a>
+                <a class="nav-link" href="{{route('Patients.biopsie') }}">Biopsie</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link-primary" href="{{route('Patients.cyto') }}">Cyto</a>
               </li>
               <li class="nav-item dropdown link-warning">
                 <a class="nav-link dropdown-toggle link-warning" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,11 +104,6 @@ body {
             @csrf
 
             <div class="form-group mt-3">
-              <label>type</label>
-              <SELECT  class="form-select" name="choices" size="1" id="in" notrequired>
-                  <OPTION>Y
-  
-                  </SELECT>
         
 
           <div class="row">

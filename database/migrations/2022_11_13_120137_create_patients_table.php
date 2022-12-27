@@ -25,6 +25,8 @@ class CreatePatientsTable extends Migration
             $table->integer('reste')->default(0);
             $table->string('description')->nullable();
             
+            $table->boolean('fini')->default(0) ;
+            
 
             $table->timestamps();
         });
