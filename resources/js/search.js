@@ -24,6 +24,7 @@ form.addEventListener('submit', function(e) {
             patients.innerHTML = `<table class="table" id="mytable">
             <thead class="thead-dark">
               <tr>
+                <th scope="col">fini</th>
                 <th scope="col">ID</th>
                 <th scope="col">name</th>
                 <th scope="col">tel</th>
@@ -34,10 +35,26 @@ form.addEventListener('submit', function(e) {
             </thead>
             <tbody>
             `;
+            /*      let func = function(arg1, arg2, ..., argN) {
+  return expression;
+};  */
+            /*    var fini = element.fini;
+                console.log(fini); */
 
+
+            console.log(data[0][1][1]);
             Object.entries(data)[0][1].forEach(element => {
+
                 table = document.getElementById('mytable');
-                var row = ` 
+
+                var affichage = function(sayi) {
+
+                    if (sayi == 1) { return "kheles"; } else { return "mzl"; }
+                }
+                var sayi = element.fini;
+                var row = `
+
+                <td>${affichage(sayi)}</td>
                 <td>${element.serie}</td>
                 <td>${element.name}</td>
                 <td>${element.num } </td>

@@ -32,12 +32,15 @@ class PatientsController extends Controller
 
     public function search(Request $request ) :JsonResponse
      {
+
         $q = $request->input('q') ;
         $patients = Patients::where('name' , 'like' , '%' . $q . '%')
         ->orWhere('serie' , 'like' , '%' . $q . '%')
         ->get() ;
+        $user = Auth::user()->admin;
         return response()->json([
-            'patients'=>$patients
+            'patients'=>$patients ,
+            'user'=>$user
         ]) ;
      }
 
@@ -56,59 +59,7 @@ class PatientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
 
-    { 
-        $patient = Patients::latest()->first()->serie;
-        $anne_courante=date("Y");
-        $rest = substr($anne_courante, -2);    // "22"
-        $ABCD=substr($patient, 2, 1);       // A B C D
-        //dd($ABCD) ;
-
-        $serie_num= substr($patient, -3) + 1 ;    //942
-        $suivant=strval($serie_num) ;
-       // dd($serie_num) ;
-        // faire le if strlen(suivant<3) .........
-        //$suivant="00".$suivant ;  //concatenation en 3 => 003
-        
-        if(strlen($suivant)<3){
-            if(strlen($suivant)==2){
-                dd(78);
-                $suivant="0".$suivant ;
-            }
-            elseif(strlen($suivant)==1){
-                
-                $suivant="00".$suivant ;
-                
-            }
-        }
-
-       
-
-      
-       //dd($ABCD) ;
-       //changer de "A" a "B" grace au code ascii
-        if($suivant==="1000")
-        {
-           $ABCD=ord($ABCD);
-            $ABCD+=1 ;
-            $suivant="001" ;
-            $ABCD=chr($ABCD) ;
-           // dd($ABCD) ;
-        }
-        
-        
-       
-
-       
-  
-
-        return view('Patients.create')->with([
-            'rest'=>$rest ,
-            'ABCD'=>$ABCD ,
-            'suivant' =>$suivant
-        ]) ;
-    }
 
     /**
      * Store a newly created resource in storage.

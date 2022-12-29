@@ -98,6 +98,9 @@
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
+                    @can('destroye-edit')
+                    <th scope="col">paye</th>
+                    @endcan
                     <th scope="col">ID</th>
                     <th scope="col">name</th>
                     <th scope="col">tel</th>
@@ -111,6 +114,18 @@
             
                 @foreach ($patients as $patient)
                     <tr>
+                      @can('destroye-edit')
+                      <td>
+                        @if ($patient->fini == 1)
+                        <img src="{{ asset('v.png') }}" alt="description of myimage" width="30" height="30">
+                        @else
+                        <img src="{{ asset('X.png') }}" alt="description of myimage" width="30" height="30"> 
+                        @endif
+                        
+
+                      </td>
+                      @endcan
+
                         <td>{{$patient->serie}}</td>
                       <td>{{$patient->name}}</td>
                     
@@ -141,9 +156,7 @@
                     </tbody>  
                  
                </table> 
-        </div>
-                <a href="{{route('Patients.create') }}" > <button class="btn btn-primary"> Patients create</button></a>
-        </div>
+
     </div>
 </div>
 </div>

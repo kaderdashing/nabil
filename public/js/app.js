@@ -5044,6 +5044,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./search */ "./resources/js/search.js");
+__webpack_require__(/*! ./print */ "./resources/js/print.js");
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
@@ -5086,6 +5087,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/print.js":
+/*!*******************************!*\
+  !*** ./resources/js/print.js ***!
+  \*******************************/
+/***/ (() => {
+
+
+
+/***/ }),
+
 /***/ "./resources/js/search.js":
 /*!********************************!*\
   !*** ./resources/js/search.js ***!
@@ -5110,10 +5121,25 @@ form.addEventListener('submit', function (e) {
   }).then(function (response) {
     response.json().then(function (data) {
       var patients = document.getElementById('aaaa');
-      patients.innerHTML = "<table class=\"table\" id=\"mytable\">\n            <thead class=\"thead-dark\">\n              <tr>\n                <th scope=\"col\">ID</th>\n                <th scope=\"col\">name</th>\n                <th scope=\"col\">tel</th>\n                <th scope=\"col\">type</th>\n                \n                <th scope=\"col\">action</th>\n              </tr>\n            </thead>\n            <tbody>\n            ";
+      patients.innerHTML = "<table class=\"table\" id=\"mytable\">\n            <thead class=\"thead-dark\">\n              <tr>\n                <th scope=\"col\">fini</th>\n                <th scope=\"col\">ID</th>\n                <th scope=\"col\">name</th>\n                <th scope=\"col\">tel</th>\n                <th scope=\"col\">type</th>\n                \n                <th scope=\"col\">action</th>\n              </tr>\n            </thead>\n            <tbody>\n            ";
+      /*      let func = function(arg1, arg2, ..., argN) {
+      return expression;
+      };  */
+      /*    var fini = element.fini;
+          console.log(fini); */
+
+      console.log(data[0][1][1]);
       Object.entries(data)[0][1].forEach(function (element) {
         table = document.getElementById('mytable');
-        var row = " \n                <td>".concat(element.serie, "</td>\n                <td>").concat(element.name, "</td>\n                <td>").concat(element.num, " </td>\n                <td>").concat(element.choices, "</td>\n                <td>\n              \n                <a href=\"Patients/").concat(element.id, " \"  >\n                <button class=\"btn btn-info m-1\"> detais</button>\n                          \n                        <a href=\"Patients/").concat(element.id, "/edit \"  >\n                        <button class=\"btn btn-primary\"> editer</button> \n                         </a>\n                        \n                         \n                          <button type=\"submit\" class=\"btn btn-warning \">suprimer</button>\n                        \n                     \n\n                             </td>\n                ");
+        var affichage = function affichage(sayi) {
+          if (sayi == 1) {
+            return "kheles";
+          } else {
+            return "mzl";
+          }
+        };
+        var sayi = element.fini;
+        var row = "\n\n                <td>".concat(affichage(sayi), "</td>\n                <td>").concat(element.serie, "</td>\n                <td>").concat(element.name, "</td>\n                <td>").concat(element.num, " </td>\n                <td>").concat(element.choices, "</td>\n                <td>\n              \n                <a href=\"Patients/").concat(element.id, " \"  >\n                <button class=\"btn btn-info m-1\"> detais</button>\n                          \n                        <a href=\"Patients/").concat(element.id, "/edit \"  >\n                        <button class=\"btn btn-primary\"> editer</button> \n                         </a>\n                        \n                         \n                          <button type=\"submit\" class=\"btn btn-warning \">suprimer</button>\n                        \n                     \n\n                             </td>\n                ");
         table.innerHTML += row;
         patients.innerHTML += "\n                </tbody>\n                ";
       });
