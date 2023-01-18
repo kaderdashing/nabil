@@ -21,10 +21,16 @@ form.addEventListener('submit', function(e) {
     }).then(response => {
         response.json().then(data => {
             const patients = document.getElementById('aaaa');
+            const isadmin = data.user;
+            var kader = function(isadmin) {
+                if (isadmin === 1) {
+                    return "fini"
+                } else return ""
+            }
             patients.innerHTML = `<table class="table" id="mytable">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">fini</th>
+                <th scope="col">${kader(isadmin)}</th>
                 <th scope="col">ID</th>
                 <th scope="col">name</th>
                 <th scope="col">tel</th>
@@ -42,16 +48,25 @@ form.addEventListener('submit', function(e) {
                 console.log(fini); */
 
 
-            console.log(data[0][1][1]);
+            ///////////////////////////////////////////////////////////////////////////////
+
             Object.entries(data)[0][1].forEach(element => {
 
                 table = document.getElementById('mytable');
+                if (isadmin === 1) {
+                    var affichage = function(sayi) {
 
-                var affichage = function(sayi) {
+                        if (sayi == 1) { return "oui"; } else { return "non"; }
+                    }
+                    var sayi = element.fini;
+                } else {
+                    var affichage = function(sayi) {
 
-                    if (sayi == 1) { return "kheles"; } else { return "mzl"; }
+                        return ""
+                    }
+
+                    sayi = " ";
                 }
-                var sayi = element.fini;
                 var row = `
 
                 <td>${affichage(sayi)}</td>

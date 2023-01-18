@@ -7,6 +7,10 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
+
+
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -38,4 +42,7 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    
+
 }

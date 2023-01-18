@@ -52,20 +52,35 @@ body {
 				</ul></li></ul></div></div></nav>
 				<br><br>
 				<div class="container">
+          <a href="{{route('Patients.print' , $patient->id) }}" class="btn btn-info m-1">imprimer</a>
+          <div class="titel">LABORATOIRE DE CYTOLOGIE ET D'ANATOMIE PATHOLOGIQUE </div>
+          <div class="nom">Dr GHERNAOUT-BOUABDALLAH Faiza</div>
+          <div class="coordonee">Spécialiste en cytopathologie et en anatomie pathologique. <br>
+               Cité des 325 Logements, Bt ATLEMCEN <br>
+      
+              Tel/Fax: 043 41 69 89 <br>
+               E-mail: f_ghern@yahoo.fr</div>
+              <br><br>
+          
+          <div class="space">
+              <div class="name">
+          nom :{{$patient->name }} </div>
+          <div class="age">
+          age :{{$patient->age }}<br> </div> </div>
+        
+         
+          Référence : {{$patient->serie }} <br>
+          <br>
+          
+          <div class="space">
+          <div>Type de prélèvement:{{$patient->choices }} </div> <div class="blas">{{$patient->type }}</div>
+          </div>
+          <br>
+          <hr> 
+          <br><br>
 
-							{{$patient->id }}
-							{{$patient->name }}
-							{{$patient->age }}
-							{{$patient->type }}
-							{{$patient->num }}
-							{{$patient->serie }} 
 							<br>
-							{{$patient->description }} 
-
-							{{$patient->choices }}
-
-							<br>
-							<a href="{{route('Patients.print' , $patient->id) }}" class="btn btn-info m-1">print</a>
+							<a href="{{route('Patients.print' , $patient->id) }}" class="btn btn-info m-1">imprimer</a>
 
 							
 							</div>

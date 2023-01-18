@@ -16,7 +16,7 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
-
+    'debug' => env('DB_DEBUG', false),
     /*
     |--------------------------------------------------------------------------
     | Database Connections

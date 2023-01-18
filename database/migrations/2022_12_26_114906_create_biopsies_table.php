@@ -23,7 +23,7 @@ class CreateBiopsiesTable extends Migration
             $table->string('serie')->unique();
             $table->integer('paye')->default(0);
             $table->integer('reste')->default(0);
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

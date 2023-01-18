@@ -46,7 +46,7 @@ class PatientsController extends Controller
 
         public function index()
         {
-            $patients = Patients::orderBy('created_at', 'DESC')->get(); ;
+            $patients = Patients::orderBy('created_at', 'DESC')->paginate(30);
             return view('Patients.home')->with([
               
                 'patients'=>$patients
@@ -344,8 +344,14 @@ class PatientsController extends Controller
     ] ;
     
          Patients::whereId($id)->update($kader);
-
-         return view('Patients.print')->with('patient', $patient); ;
+         $date = date("d/m/Y");
+        // dd($date) ;
+         return view('Patients.print')->with(
+            ['patient'=> $patient ,
+            'date'=> $date]
+        
+        );
+       // ['var1' => $var1, 'var2' => $var2]
     }
 
 

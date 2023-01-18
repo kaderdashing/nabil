@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Pagination\Paginator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
         // créé une Gate noméé destroye-edit qui retourn true ou false selon le user
         Gate::define('destroye-edit',function (User $user){
            // $user = Auth::user();

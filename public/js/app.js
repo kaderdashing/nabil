@@ -5121,24 +5121,38 @@ form.addEventListener('submit', function (e) {
   }).then(function (response) {
     response.json().then(function (data) {
       var patients = document.getElementById('aaaa');
-      patients.innerHTML = "<table class=\"table\" id=\"mytable\">\n            <thead class=\"thead-dark\">\n              <tr>\n                <th scope=\"col\">fini</th>\n                <th scope=\"col\">ID</th>\n                <th scope=\"col\">name</th>\n                <th scope=\"col\">tel</th>\n                <th scope=\"col\">type</th>\n                \n                <th scope=\"col\">action</th>\n              </tr>\n            </thead>\n            <tbody>\n            ";
+      var isadmin = data.user;
+      var kader = function kader(isadmin) {
+        if (isadmin === 1) {
+          return "fini";
+        } else return "";
+      };
+      patients.innerHTML = "<table class=\"table\" id=\"mytable\">\n            <thead class=\"thead-dark\">\n              <tr>\n                <th scope=\"col\">".concat(kader(isadmin), "</th>\n                <th scope=\"col\">ID</th>\n                <th scope=\"col\">name</th>\n                <th scope=\"col\">tel</th>\n                <th scope=\"col\">type</th>\n                \n                <th scope=\"col\">action</th>\n              </tr>\n            </thead>\n            <tbody>\n            ");
       /*      let func = function(arg1, arg2, ..., argN) {
       return expression;
       };  */
       /*    var fini = element.fini;
           console.log(fini); */
 
-      console.log(data[0][1][1]);
+      ///////////////////////////////////////////////////////////////////////////////
+
       Object.entries(data)[0][1].forEach(function (element) {
         table = document.getElementById('mytable');
-        var affichage = function affichage(sayi) {
-          if (sayi == 1) {
-            return "kheles";
-          } else {
-            return "mzl";
-          }
-        };
-        var sayi = element.fini;
+        if (isadmin === 1) {
+          var affichage = function affichage(sayi) {
+            if (sayi == 1) {
+              return "oui";
+            } else {
+              return "non";
+            }
+          };
+          var sayi = element.fini;
+        } else {
+          var affichage = function affichage(sayi) {
+            return "";
+          };
+          sayi = " ";
+        }
         var row = "\n\n                <td>".concat(affichage(sayi), "</td>\n                <td>").concat(element.serie, "</td>\n                <td>").concat(element.name, "</td>\n                <td>").concat(element.num, " </td>\n                <td>").concat(element.choices, "</td>\n                <td>\n              \n                <a href=\"Patients/").concat(element.id, " \"  >\n                <button class=\"btn btn-info m-1\"> detais</button>\n                          \n                        <a href=\"Patients/").concat(element.id, "/edit \"  >\n                        <button class=\"btn btn-primary\"> editer</button> \n                         </a>\n                        \n                         \n                          <button type=\"submit\" class=\"btn btn-warning \">suprimer</button>\n                        \n                     \n\n                             </td>\n                ");
         table.innerHTML += row;
         patients.innerHTML += "\n                </tbody>\n                ";
