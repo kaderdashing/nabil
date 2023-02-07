@@ -125,6 +125,13 @@ body {
             <label class="form-label" for="typePhone">Phone number </label>
             <input type="tel" id="typePhone" name="phone" class="form-control" placeholder="0550 50 50 50"/>
           </div>
+
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="prescripteur">Prescripteur </label>
+              <input type="text" id="prescripteur" name="prescripteur" class="form-control" placeholder="Mr"/>
+            </div>
+
           <div class="col">
             <label class="form-label" for="typePhone">serie unique </label>
             <input type="text" id="" name="serie" class="form-control" placeholder=""

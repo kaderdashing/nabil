@@ -20,6 +20,7 @@ class CreateBiopsiesTable extends Migration
             $table->integer('age')->nullable();
             $table->string('type')->nullable();
             $table->string('num')->nullable();
+            $table->string('prescripteur')->nullable();
             $table->string('serie')->unique();
             $table->integer('paye')->default(0);
             $table->integer('reste')->default(0);

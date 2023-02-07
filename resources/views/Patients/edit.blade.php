@@ -138,6 +138,15 @@ body {
             <input type="tel" id="typePhone" name="phone" class="form-control" value="{{ $patient->num }}" placeholder="0550 50 50 50"/>
           </div>
 
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="prescripteur">Prescripteur </label>
+              <input type="text" id="prescripteur" name="prescripteur" class="form-control" value="{{ $patient->prescripteur }}" placeholder="Mr"/>
+            </div>
+
+
+
+
         <div class="row">
           <div class="col">
             <label class="form-label" for="paye">payé </label>
@@ -156,7 +165,7 @@ body {
         
         <div class="form-group purple-border mt-3">
             <label for="description">description</label>
-            <textarea class="form-control" id="description" name="description" value="" rows="10">{{ $patient->description }}</textarea>
+            <textarea class="form-control" id="description" name="description" value="" rows="20">{{ $patient->description }}</textarea>
           </div>
           @endcan
 
@@ -169,3 +178,16 @@ body {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 </body>
+
+<script src="https://cdn.tiny.cloud/1/ncnek0v54ypl4dnmsxn13op9l6kifxrc3ws4oqcjhuyvd4eh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+
+
+  tinymce.init({
+    selector: 'textarea#description',
+    plugins: ' code',
+    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code | lineheight' ,
+    force_br_newlines: false,
+    force_p_newlines: true
+  });
+</script>

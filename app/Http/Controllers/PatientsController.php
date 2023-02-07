@@ -80,10 +80,13 @@ class PatientsController extends Controller
             'AGE' => '',
             'TYPE' => 'required',
             'phone' => '',
+            'prescripteur' => '',
+            
             'serie' => 'required',
             'paye' => 'required',
             'reste' => 'required',
         ]);
+        //dd($kader) ;
        // dd(1);
        /////////////////////remplacer le "+" par le choix  "X" "Y"////////////////
     /*   $tyupe=$request->get('choices');
@@ -91,18 +94,21 @@ class PatientsController extends Controller
        $plus=substr($nouv, 3, 1);
        $kader=str_replace($plus,$tyupe,$nouv) ; */
         //////////////////////////////////////////////////////////////////////////
+        
         $patients = new Patients([
             "choices" => $H,
             "name" => $request->get('nom'),
             "age" => $request->get('AGE'),
             "type" => $request->get('TYPE'),
             "num" => $request->get('phone'),
+            "prescripteur" => $request->get('prescripteur'),
             "serie" => $request->get('serie'),
             "paye" => $request->get('paye'),
             "reste" => $request->get('reste'),
             
         ]);
         $patients->save(); // Finally, save the record.
+        
 
         if($H === "X"){
           //  dd("biopsie") ;
@@ -112,11 +118,13 @@ class PatientsController extends Controller
                 "age" => $request->get('AGE'),
                 "type" => $request->get('TYPE'),
                 "num" => $request->get('phone'),
+                "prescripteur" => $request->get('prescripteur'),
                 "serie" => $request->get('serie'),
                 "paye" => $request->get('paye'),
                 "reste" => $request->get('reste'),
                 
             ]);
+            
             $biopsie->save(); 
             Session::flash('kader',"le patient a bien été créé - voulez vous créé un autre ?") ;
             return redirect('/Patients/biopsie');
@@ -127,6 +135,7 @@ class PatientsController extends Controller
                 "age" => $request->get('AGE'),
                 "type" => $request->get('TYPE'),
                 "num" => $request->get('phone'),
+                "prescripteur" => $request->get('prescripteur'),
                 "serie" => $request->get('serie'),
                 "paye" => $request->get('paye'),
                 "reste" => $request->get('reste'),
@@ -193,6 +202,7 @@ class PatientsController extends Controller
             'AGE' => '',
             'TYPE' => 'required',
             'phone' => '',
+            'prescripteur' => '',
             'paye' => 'required',
             'reste' => 'required',
             'description' =>''
@@ -205,6 +215,8 @@ class PatientsController extends Controller
             "age" => $request->get('AGE'),
             "type" => $request->get('TYPE'),
             "num" => $request->get('phone'),
+            "prescripteur" => $request->get('prescripteur'),
+
             "paye" => $request->get('paye'),
             "reste" => $request->get('reste'),
             "description" => $request->get('description'),

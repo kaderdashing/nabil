@@ -3,12 +3,21 @@
 <style>
     @media print {
 	@page {
-		margin-top: 0;
-		margin-bottom: 0;
+		margin-top: 30;
+		margin-bottom: 30;
 	}
+    p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.droite {
+  float: right;
+  margin-right: 80px ;
+}
 	body {
         margin-left: 20px ;
-		padding-top: 72px;
+		padding-top: 82px;
 		padding-bottom: 72px ;
         padding-left: 25px ;
 	}
@@ -67,6 +76,8 @@ hr {
   
    
     Référence : {{$patient->serie }} <br>
+
+    Prescripteur : {{$patient->prescripteur}}
     <br>
     
     <div class="space">
@@ -77,14 +88,20 @@ hr {
     <br><br>
     <div class="date">Tlemcen le: {{$date}} </div>
     <br><br><br><br>
-    {{$patient->description }}
+    <div class="lotfi" id="lotfi">
+   <p>
+    {!! nl2br($patient->description) !!} </p>
+    <br> <br> <br>
+    <span class="droite"> Confraternellement</span>
+    </div>
     </body>
 
 
 
 <script>
-    window.print() ;
+
+window.print();
 setTimeout(() => {
     (window.location = "/Patients");
-}, 2000); 
+}, 2000);
 </script>
